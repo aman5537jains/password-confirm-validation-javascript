@@ -3,26 +3,29 @@
     function getElement(id) {
       return document.getElementById(id).value;
     }
-    function isEmpty(id) {
-      if (getElement(id) == '') {
-        return true;
-      }
-      return false;
-    }
+
     function onSubmitHandle() {
       var isFormValid = true;
-      if (isEmpty('firstName')) {
+      var pass = document.getElementById('password').value;
+      var confirm_pass = document.getElementById('confirmPassword').value;
+      var err_elmt = document.getElementById('error');
+
+      if (pass == '') {
+        err_elmt.innerHTML = 'Please enter password';
         isFormValid = false;
-        alert('Please enter first name');
-      } else if (isEmpty('lastName')) {
+      } else if (pass.length < 7) {
+        err_elmt.innerHTML = 'Please must be at least 8 char long';
         isFormValid = false;
-        alert('Please enter last name');
-      } else if (isEmpty('email')) {
+      } else if (!(/\d/.test(pass) && /[a-zA-Z]/.test(pass))) {
+        err_elmt.innerHTML = 'Please enter at least 1 char and 1 number';
         isFormValid = false;
-        alert('Please enter email');
-      } else if (isEmpty('password')) {
+      }
+      else if (confirm_pass!=pass){
+        err_elmt.innerHTML = 'Password and confirm password does not match';
         isFormValid = false;
-        alert('Please enter password');
+      }
+      else {
+        err_elmt.innerHTML = '';
       }
 
       return isFormValid;
@@ -42,35 +45,10 @@
       <div class="container">
         <div class="row">
           <div class="col-md-6 offset-md-3">
-            <h3>Javascript Form Validation - Readerstacks</h3>
+            <h3>
+              Javascript Password confirm password Validation - Readerstacks
+            </h3>
             <form name="registerform" onsubmit="return onSubmitHandle()">
-              <div class="form-group">
-                <label>First Name</label>
-                <input
-                  id="firstName"
-                  type="text"
-                  name="firstName"
-                  class="form-control"
-                />
-              </div>
-              <div class="form-group">
-                <label>Last Name</label>
-                <input
-                  id="lastName"
-                  type="text"
-                  name="lastName"
-                  class="form-control"
-                />
-              </div>
-              <div class="form-group">
-                <label>Email</label>
-                <input
-                  id="email"
-                  type="text"
-                  name="email"
-                  class="form-control"
-                />
-              </div>
               <div class="form-group">
                 <label>Password</label>
                 <input
@@ -83,11 +61,13 @@
               <div class="form-group">
                 <label>Confirm Password</label>
                 <input
+                id="confirmPassword"
                   type="password"
                   name="confirmPassword"
                   class="form-control"
                 />
               </div>
+              <div id="error" style="color: red"></div>
               <div class="form-group">
                 <input type="submit" value="Submit" />
               </div>
@@ -99,7 +79,9 @@
     <!-- credits -->
     <div class="text-center">
       <p>
-        <a href="#" target="_top">javascript Forms Validation </a>
+        <a href="#" target="_top"
+          >Javascript Password confirm password Validation</a
+        >
       </p>
       <p>
         <a href="https://readerstacks.com" target="_top">readerstacks.com</a>
